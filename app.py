@@ -5,18 +5,14 @@ import numpy as np
 import tensorflow as tf
 import os
 
-# ==============================
-# MODEL & DATASET
-# ==============================
+
 MODEL_PATH = r"C:\Users\Eren\PycharmProjects\Veri_Bilimi_Odev\fashion_cnn_30class.h5"
 TRAIN_DIR = r"C:\Users\Eren\Desktop\fashion-dataset\dataset2\train"
 
-IMG_SIZE = (128, 128)   # eğitimde kullandığın boyut
-NUM_CHANNELS = 3        # RGB
+IMG_SIZE = (128, 128)  
+NUM_CHANNELS = 3        
 
-# ==============================
-# SINIFLARI OTOMATİK AL
-# ==============================
+
 CLASS_NAMES = sorted([
     d for d in os.listdir(TRAIN_DIR)
     if os.path.isdir(os.path.join(TRAIN_DIR, d))
@@ -25,14 +21,10 @@ CLASS_NAMES = sorted([
 print("Yüklenen sınıflar:", CLASS_NAMES)
 print("Toplam sınıf:", len(CLASS_NAMES))
 
-# ==============================
-# MODEL YÜKLE
-# ==============================
+
 model = tf.keras.models.load_model(MODEL_PATH)
 
-# ==============================
-# TAHMİN FONKSİYONU
-# ==============================
+
 def predict_image(img_path):
     img = Image.open(img_path).convert("RGB")
     img = img.resize(IMG_SIZE)
@@ -46,9 +38,7 @@ def predict_image(img_path):
 
     return CLASS_NAMES[class_index], confidence
 
-# ==============================
-# BUTON FONKSİYONU
-# ==============================
+
 def upload_and_predict():
     file_path = filedialog.askopenfilename(
         filetypes=[("Image Files", "*.png *.jpg *.jpeg")]
@@ -70,9 +60,7 @@ def upload_and_predict():
         text=f"Tahmin: {label}\nGüven: %{confidence:.2f}"
     )
 
-# ==============================
-# TKINTER ARAYÜZ
-# ==============================
+
 root = tk.Tk()
 root.title("Giysi Sınıflandırma Sistemi")
 root.geometry("420x480")
